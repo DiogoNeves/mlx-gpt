@@ -1,4 +1,5 @@
 # mlx-gpt
-![Let's build GPT](https://youtu.be/kCc8FmEb1nY?si=PRVcXtLSZFvnNHjx)
+
+[![CleanShot 2024-03-14 at 16 31 37](https://github.com/DiogoNeves/mlx-gpt/assets/178898/d2bb4e00-3005-41e2-ba1f-b8c05f45c12d)](https://youtu.be/kCc8FmEb1nY?si=PRVcXtLSZFvnNHjx)
 
 An approximate implementation of A. Karpathy's Let's build GPT, with MLX.
