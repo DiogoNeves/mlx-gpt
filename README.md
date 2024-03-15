@@ -19,7 +19,7 @@ pip install -r requirements.txt
 ## 🤖 Usage
 Coming soon...
 
-You can also inspect the messy experimental notebook I created while following the video at [experiment.ipynb](./experiment.ipynb).  
+You can inspect the experimental notebook I created while following the video at [experiment.ipynb](./experiment.ipynb). More understandable if you follow the video.  
 _Tested on Macbook Air M1._
 
 ## 📦 Dependencies
