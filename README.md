@@ -23,8 +23,9 @@ You can also inspect the messy experimental notebook I created while following t
 _Tested on Macbook Air M1._
 
 ## 📦 Dependencies
-- [Apple MLX](https://ml-explore.github.io/mlx/build/html/index.html)
+- [Apple's MLX](https://ml-explore.github.io/mlx/build/html/index.html)
 - [requests](https://requests.readthedocs.io/en/latest/)
+- [Tiny Shakespeare Dataset](https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt)
 - (Optional) [jupyter](https://docs.jupyter.org/en/latest/)
 
 ## 📜 License
