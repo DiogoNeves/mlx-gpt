@@ -4,6 +4,8 @@
 | --- | --- |
 
 ## 🚀 Getting Started
+I recommend watching the walkthrough if you haven't yet!
+
 ### Instalation
 ```bash
 # Setup the environment
@@ -14,17 +16,16 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-To be continued...
+## 🤖 Usage
+Coming soon...
+
+You can also inspect the messy experimental notebook I created while following the video at [experiment.ipynb](./experiment.ipynb).  
+_Tested on Macbook Air M1._
 
 ## 📦 Dependencies
 - [Apple MLX](https://ml-explore.github.io/mlx/build/html/index.html)
 - [requests](https://requests.readthedocs.io/en/latest/)
 - (Optional) [jupyter](https://docs.jupyter.org/en/latest/)
-
-## 🤖 Usage
-Coming soon...
-
-_Tested on Macbook Air M1._
 
 ## 📜 License
 [MIT License](./LICENSE)
