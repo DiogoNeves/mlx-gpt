@@ -4,7 +4,17 @@
 | --- | --- |
 
 ## 🚀 Getting Started
-Coming soon...
+### Instalation
+```bash
+# Setup the environment
+python -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+To be continued...
 
 ## 📦 Dependencies
 - [Apple MLX](https://ml-explore.github.io/mlx/build/html/index.html)
@@ -13,6 +23,8 @@ Coming soon...
 
 ## 🤖 Usage
 Coming soon...
+
+_Tested on Macbook Air M1._
 
 ## 📜 License
 [MIT License](./LICENSE)
