@@ -19,9 +19,9 @@ pip install -r requirements.txt
 
 ## 🤖 Usage
 ### Train and run the Bigram model
+At the moment the command below trains and runs the model straight away.  
+__It will also download and cache the data if needed.__  
 ```bash
-# At the moment this trains and runs straight away.
-# It will also download and cache the data if needed.
 python bigram.py
 ```
 
