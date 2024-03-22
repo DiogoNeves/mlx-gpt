@@ -1,5 +1,6 @@
 """Bigram model implementation."""
 
+from enum import Enum
 from typing import Literal
 
 import mlx.core as mx
@@ -7,6 +8,12 @@ import mlx.nn as nn
 import mlx.optimizers as optim
 
 from data import fetch_input_data
+
+
+class DataSplit(Enum):
+    TRAIN = "train"
+    VAL = "val"
+
 
 # Hyperparameters
 batch_size = 32 # how many independent sequences will we process in parallel?
@@ -46,30 +53,15 @@ train_data = data[:n]
 val_data = data[n:]
 
 
-def get_batch(split: Literal["train", "val"]) -> tuple[mx.array, mx.array]:
+def get_batch(split: DataSplit) -> tuple[mx.array, mx.array]:
     """Generate a small batch of data of inputs x and targets y"""
-    data = train_data if split == "train" else val_data
+    data = train_data if split == DataSplit.TRAIN else val_data
     ix = mx.random.randint(0, len(data) - block_size, [batch_size])
     # gets `batch_size` blocks stacked
     x = mx.stack([data[i.item():i.item() + block_size] for i in ix])
     # it's shifted to compute the target vectorized
     y = mx.stack([data[i.item() + 1:i.item() + block_size + 1] for i in ix])
     return x, y
-
-
-@torch.no_grad()
-def estimate_loss():
-    out = {}
-    model.eval()
-    for split in ['train', 'val']:
-        losses = torch.zeros(eval_iters)
-        for k in range(eval_iters):
-            X, Y = get_batch(split)
-            logits, loss = model(X, Y)
-            losses[k] = loss.item()
-        out[split] = losses.mean()
-    model.train()
-    return out
 
 
 class BigramLanguageModel(nn.Module):
@@ -101,17 +93,30 @@ class BigramLanguageModel(nn.Module):
 def loss_fn(model: nn.Module, x: mx.array, y: mx.array) -> mx.array:
     return mx.mean(nn.losses.cross_entropy(model(x), y))
 
+
+def estimate_loss():
+    out = {}
+    for split in [DataSplit.TRAIN, DataSplit.VAL]:
+        losses = mx.zeros(eval_iters)
+        for k in range(eval_iters):
+            xb, yb = get_batch(split)
+            loss = loss_fn(model, xb, yb)
+            losses[k] = loss.item()
+        out[split] = losses.mean()
+    return out
+
+
 model = BigramLanguageModel(vocab_size)
 loss_and_grad_fn = nn.value_and_grad(model, loss_fn)
 optimizer = optim.AdamW(learning_rate=learning_rate)
 
 for epoch in range(max_epochs):
     # every once in a while evaluate the loss on train and val sets
-    if max_epochs % eval_interval == 0:
+    if epoch % eval_interval == 0:
         losses = estimate_loss()
-        print(f"step {iter}: train loss {losses['train']:.4f}, val loss {losses['val']:.4f}")
+        print(f"step {epoch}: train loss {losses[DataSplit.TRAIN]}, val loss {losses[DataSplit.VAL]}")
 
-    xb, yb = get_batch("train")
+    xb, yb = get_batch(DataSplit.TRAIN)
     loss, grads = loss_and_grad_fn(model, xb, yb)
     optimizer.update(model, grads)
     mx.eval(model.parameters(), optimizer.state)
