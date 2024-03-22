@@ -17,12 +17,13 @@ pip install -r requirements.txt
 ```
 
 ## 🤖 Usage
-### Run the Bigram model
+### Train and run the Bigram model
 ```bash
+# At the moment this trains and runs straight away
 python bigram.py
 ```
 
-### Run the GPT model
+### Train and run the GPT model
 Coming soon...
 
 ### Other
