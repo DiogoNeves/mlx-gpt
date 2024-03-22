@@ -4,6 +4,7 @@
 | --- | --- |
 
 ## 🚀 Getting Started
+I tried to stay as close as possible to the original material, so that it's easy to follow.  
 I recommend watching the walkthrough if you haven't yet!
 
 ### Instalation
