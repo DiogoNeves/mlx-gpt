@@ -25,6 +25,14 @@ __It will also download and cache the data if needed.__
 python bigram.py
 ```
 
+**Validation**
+Roughly comparing the results in the video with my results as validation.
+| Video | MLX |
+|---|---|
+| ![CleanShot 2024-03-25 at 09 54 24@2x](https://github.com/DiogoNeves/mlx-gpt/assets/178898/e8a02433-017e-4363-bcdd-d16b97f8157b) | ![CleanShot 2024-03-25 at 09 51 19@2x](https://github.com/DiogoNeves/mlx-gpt/assets/178898/4cc8dcaa-9e3b-4e47-8b6b-248200e760b6) |
+> Both converge to a similar value (Please ignore the formatting issues)
+
+
 ### Train and run the GPT model
 Coming soon...
 
