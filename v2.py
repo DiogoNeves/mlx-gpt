@@ -18,9 +18,10 @@ class DataSplit(Enum):
 batch_size = 32 # how many independent sequences will we process in parallel?
 block_size = 8 # what is the maximum context length for predictions?
 max_epochs = 3000
+learning_rate = 1e-2
 eval_interval = 300
 eval_iters = 200
-learning_rate = 1e-2
+m_embd = 32
 # ---------------
 
 mx.random.seed(1337)
@@ -65,14 +66,14 @@ def get_batch(split: DataSplit) -> tuple[mx.array, mx.array]:
 
 class BigramLanguageModel(nn.Module):
     """Super-simple Bigram model."""
-    def __init__(self, vocab_size: int):
+    def __init__(self):
         super().__init__()
-        # each token directly reads off the logits for the next token
-        # from a lookup table
-        self.token_embedding = nn.Embedding(vocab_size, vocab_size)
+        self.token_embedding = nn.Embedding(vocab_size, m_embd)
+        self.lm_head = nn.Linear(m_embd, vocab_size)
     
     def __call__(self, idx: mx.array) -> mx.array:
-        return self.token_embedding(idx)
+        token_embeddings = self.token_embedding(idx)  # (B, T, m_embd)
+        return self.lm_head(token_embeddings)  # (B, T, vocab_size)
     
     def generate(self, idx: mx.array, max_new_tokens: int) -> mx.array:
         # idx is (B, T) array of indices in the current context
@@ -105,7 +106,7 @@ def estimate_loss():
     return out
 
 
-model = BigramLanguageModel(vocab_size)
+model = BigramLanguageModel()
 loss_and_grad_fn = nn.value_and_grad(model, loss_fn)
 optimizer = optim.AdamW(learning_rate=learning_rate)
 
