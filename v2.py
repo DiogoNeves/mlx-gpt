@@ -68,12 +68,18 @@ class BigramLanguageModel(nn.Module):
     """Super-simple Bigram model."""
     def __init__(self):
         super().__init__()
-        self.token_embedding = nn.Embedding(vocab_size, m_embd)
+        self.token_embedding_table = nn.Embedding(vocab_size, m_embd)
+        self.position_embedding_table = nn.Embedding(block_size, m_embd)
         self.lm_head = nn.Linear(m_embd, vocab_size)
     
     def __call__(self, idx: mx.array) -> mx.array:
-        token_embeddings = self.token_embedding(idx)  # (B, T, m_embd)
-        return self.lm_head(token_embeddings)  # (B, T, vocab_size)
+        B, T = idx.shape
+
+        token_embeddings = self.token_embedding_table(idx)  # (B, T, m_embd)
+        position_embeddings = self.position_embedding_table(
+            mx.arange(T, dtype=mx.int64))  # (T, m_embd)
+        x = token_embeddings + position_embeddings
+        return self.lm_head(x)  # (B, T, vocab_size)
     
     def generate(self, idx: mx.array, max_new_tokens: int) -> mx.array:
         # idx is (B, T) array of indices in the current context
