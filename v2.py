@@ -64,6 +64,22 @@ def get_batch(split: DataSplit) -> tuple[mx.array, mx.array]:
     return x, y
 
 
+class Head(nn.Module):
+    def __init__(self, head_size: int):
+        super().__init__()
+        self.key = nn.Linear(m_embd, head_size, bias=False)
+        self.query = nn.Linear(m_embd, head_size, bias=False)
+        self.value = nn.Linear(m_embd, head_size, bias=False)
+
+        # This should be equivalent to `register_buffer` in PyTorch.
+        # Thanks https://github.com/awni for the tip!
+        self._tril = mx.tril(mx.ones((block_size, block_size)))
+    
+    def __call__(self, x: mx.array) -> mx.array:
+        # TODO: Continue here
+        return x
+
+
 class BigramLanguageModel(nn.Module):
     """Super-simple Bigram model."""
     def __init__(self):
